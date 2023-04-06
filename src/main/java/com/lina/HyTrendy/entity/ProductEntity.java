@@ -9,7 +9,6 @@ import lombok.Data;
 
 @Node("Product")
 @Data
-
 public class ProductEntity {
 	@Id @GeneratedValue
 	private Long id;
