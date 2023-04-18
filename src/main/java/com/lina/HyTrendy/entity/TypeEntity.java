@@ -1,39 +1,22 @@
 package com.lina.HyTrendy.entity;
 
+import java.util.List;
+
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
 import lombok.Data;
 
-@Node("Product")
+@Node("Type")
 @Data
-public class ProductEntity {
+public class TypeEntity {
 	@Id @GeneratedValue
 	private Long id;
 	
 	@Property("name")
 	private String name;
 	
-	@Property("price")
-	private int price;
-	
-	@Property("stock")
-	private int stock;
-	
-	@Property("size")
-	private String[] size;
-	
-	@Property("tags")
-	private String tags;
-	
-	@Property("origin")
-	private String origin;
-	
-	@Property("description")
-	private String descriptio;
-	
-	@Property("image")
-	private String[] image;
 }
