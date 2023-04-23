@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lina.HyTrendy.dto.CategoryDto;
 import com.lina.HyTrendy.dto.ProductDto;
+import com.lina.HyTrendy.service.CategoryService;
 import com.lina.HyTrendy.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.PackagePrivate;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class Product {
 
 	private final ProductService productService;
+	private final CategoryService categoryService;
 	
 	@GetMapping("/product")
 	public List<ProductDto> getAllProduct(){
@@ -31,6 +35,11 @@ public class Product {
 	public List<ProductDto> getByCategoryAndType(@PathVariable(name = "categoryCode", required = false) String categoryCode, 
 			@PathVariable(name = "typeCode", required = false) String typeCode) {
 		return productService.getByCategoryAndType(categoryCode, typeCode);
+	}
+
+	@GetMapping("/product/{id}")
+	public ProductDto getById (@PathVariable (name = "id" , required = false) long id) {
+		return productService.getById(id);
 	}
 
 ////	@GetMapping("/product")

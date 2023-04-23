@@ -32,8 +32,11 @@ public class ProductEntity {
 	private String origin;
 	
 	@Property("description")
-	private String descriptio;
+	private String description;
 	
 	@Property("image")
 	private String[] image;
+	
+	@Property("material")
+	private String material;
 }

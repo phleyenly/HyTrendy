@@ -27,4 +27,11 @@ public class CategoryService {
 		}
 		return cateDto;
 	}
+	
+	public CategoryDto getCategoryByCode ( String categoryCode) {
+		CategoryDto cateDto = new CategoryDto();
+		CategoryEntity cateEntity = categoryReponsitory.getCategoryByCode(categoryCode);
+		cateDto = mapper.map(cateEntity, CategoryDto.class);
+		return cateDto;
+	}
 }

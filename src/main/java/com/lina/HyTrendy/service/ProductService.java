@@ -43,6 +43,14 @@ public class ProductService {
 		return pdto;
 	}
 	
+	public ProductDto getById ( long id) {
+		ProductDto pdto = new ProductDto();
+		ProductEntity productEntity = productReponsitory.getById(id);
+		pdto = mapper.map(productEntity, ProductDto.class);
+		return pdto;
+		
+	}
+	
 	//Hàm Ví dụ
 //	public List<ProductDto> findAll(){
 ////		return productReponsitory.findAll();

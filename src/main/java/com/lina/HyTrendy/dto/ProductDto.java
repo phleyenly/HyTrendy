@@ -15,6 +15,7 @@ public class ProductDto {
 	private String[] size;
 	private String tags;
 	private String origin;
-	private String descriptio;
+	private String description;
 	private String[] image;
+	private String material;
 }

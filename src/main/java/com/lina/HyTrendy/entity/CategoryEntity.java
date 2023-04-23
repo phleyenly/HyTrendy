@@ -21,6 +21,9 @@ public class CategoryEntity {
 	
 	@Property("name")
 	private String name;
+
+	@Property("code")
+	private String code;
 	
 	@Relationship(type = "HAS_TYPE", direction = Relationship.Direction.OUTGOING)
 	private List<TypeEntity> types;

@@ -17,5 +17,9 @@ public interface ProductReponsitory extends Neo4jRepository<ProductEntity, Long>
 			+ "Where c.code = $categoryCode and t.code = $typeCode "
 			+ "return  p")
 	public List<ProductEntity> getByCategoryAndType( @Param("categoryCode") String categoryCode,  @Param("typeCode") String typeCode);
+	
+	@Query ("match (p:Product) where ID(p) =$id Return p")
+	public ProductEntity getById (@Param("id") long id);
+	
 
 }

@@ -18,5 +18,8 @@ public class TypeEntity {
 	
 	@Property("name")
 	private String name;
+
+	@Property("code")
+	private String code;
 	
 }
