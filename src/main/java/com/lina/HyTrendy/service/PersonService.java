@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PersonService {
-	private PersonReponsitory personReponsitory;
+	private final PersonReponsitory personReponsitory;
 	private final ModelMapper mapper;
 	
 	public List<String> getRole () {

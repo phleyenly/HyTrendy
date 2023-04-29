@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.lina.HyTrendy.entity.PersonEntity;
 import com.lina.HyTrendy.projection.CartItemProjection;
 
+@Repository
 public interface PersonReponsitory extends Neo4jRepository<PersonEntity, Long> {//rename thanh person trc di
 	@Query("MATCH (p:Person)-[h:HAS_CART]->(i:Product) "
 			+ "WHERE ID(p) = $id "
@@ -16,7 +18,7 @@ public interface PersonReponsitory extends Neo4jRepository<PersonEntity, Long> {
 	public List<CartItemProjection> getCartByPersonById ( @Param("id") Long id);
 	
 	@Query("MATCH (p:Person) "
-			+ "RETURN collect(p.role)")
+			+ "RETURN distinct p.role")
 	public List<String> getRole();
 
 }
