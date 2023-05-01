@@ -1,10 +1,12 @@
 package com.lina.HyTrendy.api;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +43,16 @@ public class Product {
 	public ProductDto getById (@PathVariable (name = "id" , required = false) long id) {
 		return productService.getById(id);
 	}
-
+	
+	@PutMapping("/product/{id}")
+	public Map<String, String> setById (@PathVariable (name = "id", required = true) long id, @RequestBody ProductDto p) {
+		return productService.setById(id, p.getDescription(), p.getMaterial(), p.getName(),
+			p.getOrigin(), p.getPrice(), p.getSize(), p.getStock(), p.getTags(), p.getImage());
+	}
+	
+	
+	
+	
 ////	@GetMapping("/product")
 ////	public List<ProductDto> findAllProduct(){
 ////		return productService.findAll();

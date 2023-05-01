@@ -1,10 +1,13 @@
 package com.lina.HyTrendy.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 
@@ -50,6 +53,21 @@ public class ProductService {
 		return pdto;
 		
 	}
+	
+	public Map<String, String> setById (long id, String description, String material, String name, 
+			String origin, int price, String[] size, int stock, String tags, String[] image) {
+		Map<String, String> result = new HashMap<>();
+		Long idRepository = productReponsitory.setByID(id, description, material, name, origin, price, size, stock, tags, image);
+		if (idRepository == null) {
+			result.put("message", "Thêm Thất Bại");
+		} else {
+			result.put("message", "Thêm Thành Công");
+		}
+		return result;
+		
+	}
+	
+	
 	
 	//Hàm Ví dụ
 //	public List<ProductDto> findAll(){
