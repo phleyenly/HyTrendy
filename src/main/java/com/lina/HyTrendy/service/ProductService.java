@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 
 import com.lina.HyTrendy.dto.ProductDto;
+import com.lina.HyTrendy.dto.ProductExtenDto;
 import com.lina.HyTrendy.entity.ProductEntity;
+import com.lina.HyTrendy.projection.ProductExtendProjection;
 import com.lina.HyTrendy.reponsitory.ProductReponsitory;
 
 import lombok.RequiredArgsConstructor;
@@ -54,16 +56,37 @@ public class ProductService {
 		
 	}
 	
-	public Map<String, String> setById (long id, String description, String material, String name, 
-			String origin, int price, String[] size, int stock, String tags, String[] image) {
+//	public Map<String, String> setById (long id, String description, String material, String name, 
+//			String origin, int price, String[] size, int stock, String tags, String[] image) {
+//		Map<String, String> result = new HashMap<>();
+//		Long idRepository = productReponsitory.setByID(id, description, material, name, origin, price, size, stock, tags, image);
+//		if (idRepository == null) {
+//			result.put("message", "Chỉnh Sửa Thất Bại");
+//		} else {
+//			result.put("message", "Chỉnh Sửa Thành Công");
+//		}
+//		return result;
+//		
+//	}
+	
+	public Map<String, String> updateByID (long id, String description, String material, String name, 
+			String origin, int price, String[] size, int stock, String tags, String[] image, long idType) {
 		Map<String, String> result = new HashMap<>();
-		Long idRepository = productReponsitory.setByID(id, description, material, name, origin, price, size, stock, tags, image);
+		Long idRepository = productReponsitory.updateByID(id, description, material, name, origin, price, size, stock, tags, image, idType);
 		if (idRepository == null) {
-			result.put("message", "Thêm Thất Bại");
+			result.put("message", "Chỉnh Sửa Thất Bại");
 		} else {
-			result.put("message", "Thêm Thành Công");
+			result.put("message", "Chỉnh Sửa Thành Công");
 		}
 		return result;
+		
+	}
+	
+	public ProductExtenDto getProductExtendById ( long id) {
+		ProductExtenDto pdto = new ProductExtenDto();
+		ProductExtendProjection productProjection = productReponsitory.getProductExtendById(id);
+		pdto = mapper.map(productProjection, ProductExtenDto.class);
+		return pdto;
 		
 	}
 	

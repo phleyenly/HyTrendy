@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lina.HyTrendy.dto.CategoryAndTypeNameDto;
 import com.lina.HyTrendy.dto.CategoryDto;
 import com.lina.HyTrendy.dto.ProductDto;
+import com.lina.HyTrendy.dto.ProductExtenDto;
+import com.lina.HyTrendy.service.CategoryAndTypeNameService;
 import com.lina.HyTrendy.service.CategoryService;
 import com.lina.HyTrendy.service.ProductService;
 
@@ -27,6 +30,7 @@ public class Product {
 
 	private final ProductService productService;
 	private final CategoryService categoryService;
+	private final CategoryAndTypeNameService ctName;
 	
 	@GetMapping("/product")
 	public List<ProductDto> getAllProduct(){
@@ -42,12 +46,16 @@ public class Product {
 	@GetMapping("/product/{id}")
 	public ProductDto getById (@PathVariable (name = "id" , required = false) long id) {
 		return productService.getById(id);
+	
+//	public CategoryAndTypeNameDto getNameById (@PathVariable (name = "id" , required = true) long id) {
+//		return ctName.getCategoryAndTypeById(id);
+		
 	}
 	
 	@PutMapping("/product/{id}")
-	public Map<String, String> setById (@PathVariable (name = "id", required = true) long id, @RequestBody ProductDto p) {
-		return productService.setById(id, p.getDescription(), p.getMaterial(), p.getName(),
-			p.getOrigin(), p.getPrice(), p.getSize(), p.getStock(), p.getTags(), p.getImage());
+	public Map<String, String> updateById (@PathVariable (name = "id", required = true) long id, @RequestBody ProductExtenDto p) {
+		return productService.updateByID(id, p.getDescription(), p.getMaterial(), p.getName(),
+			p.getOrigin(), p.getPrice(), p.getSize(), p.getStock(), p.getTags(), p.getImage(), p.getTypeId());
 	}
 	
 	
