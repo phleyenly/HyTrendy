@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class ProductEntity {
 	@Id @GeneratedValue
-	private Long id;
+	private long id;
 	
 	@Property("name")
 	private String name;

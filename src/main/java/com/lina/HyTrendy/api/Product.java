@@ -44,8 +44,8 @@ public class Product {
 	}
 
 	@GetMapping("/product/{id}")
-	public ProductDto getById (@PathVariable (name = "id" , required = false) long id) {
-		return productService.getById(id);
+	public ProductExtenDto getProductExtendById (@PathVariable (name = "id" , required = false) Long id) {
+		return productService.getProductExtendById(id);
 	
 //	public CategoryAndTypeNameDto getNameById (@PathVariable (name = "id" , required = true) long id) {
 //		return ctName.getCategoryAndTypeById(id);
@@ -58,8 +58,11 @@ public class Product {
 			p.getOrigin(), p.getPrice(), p.getSize(), p.getStock(), p.getTags(), p.getImage(), p.getTypeId());
 	}
 	
-	
-	
+	@PostMapping("/product")
+	public Map<String, String> createProduct (@RequestBody ProductExtenDto p) {
+		return productService.createProductByID(p.getDescription(), p.getMaterial(), p.getName(),
+			p.getOrigin(), p.getPrice(), p.getSize(), p.getStock(), p.getTags(), p.getImage(), p.getTypeId(), p.getCategoryId());
+	}
 	
 ////	@GetMapping("/product")
 ////	public List<ProductDto> findAllProduct(){

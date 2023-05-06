@@ -30,10 +30,14 @@ public interface ProductReponsitory extends Neo4jRepository<ProductEntity, Long>
 //			@Param("origin") String origin, @Param("price")  int price, @Param("size") String[] size, @Param("stock") int stock, @Param("tags") String tags, @Param("image") String[] image);
 	
 	
-	@Query("Match (p:Category)-[h1:HAS_TYPE] -(t:Type)-[h2:HAS_PRODUCT]->(pr:Product) "
-			+ "Where ID(pr) = $id "
-			+ "Return ID(p) as categoryId , ID(t) as typeId, pr.description as description, pr.image as image, pr.material as material, pr.name as name, pr.origin as origin, pr.price as price, pr.size as size, pr.stock as stock, pr.tags as tags")
-	public ProductExtendProjection getProductExtendById (@Param("id") long id);
+	@Query("MATCH (p:Category)-[h1:HAS_TYPE]-(t:Type)-[h2:HAS_PRODUCT]->(pr:Product)"
+			+ " WHERE ID(pr) = $id"
+			+ " RETURN pr, "
+			+ "		ID(p) as categoryId,"
+			+ "		ID(t) as typeId,"
+			+ "		ID(pr) as id,"
+			+ "		pr.description as description, pr.image as image, pr.material as material, pr.name as name, pr.origin as origin, pr.price as price, pr.size as size, pr.stock as stock, pr.tags as tags")
+	public ProductExtendProjection getProductExtendById(@Param("id") Long id);
 
 	@Query("Match (p:Category)-[h1:HAS_TYPE] -(t:Type)-[h2:HAS_PRODUCT]->(pr:Product) "
 			+ "Where ID(pr) = $id "
@@ -47,6 +51,23 @@ public interface ProductReponsitory extends Neo4jRepository<ProductEntity, Long>
 	public Long updateByID (@Param("id") long id, @Param("description") String description, @Param("material") String material, @Param("name") String name,
 			@Param("origin") String origin, @Param("price")  int price, @Param("size") String[] size, @Param("stock") int stock, @Param("tags") String tags, @Param("image") String[] image, @Param("idType") long idType);
 	
+	@Query("Create(p:Product{ "
+			+ "    name: $name, "
+			+ "    price: $price,"
+			+ "    stock: $stock,"
+			+ "    size: $size,"
+			+ "    tags: $tags,"
+			+ "    origin:$origin,"
+			+ "    material: $material,"
+			+ "    description: $description})"
+			+ " with p"
+			+ " match(c:Category)-[:HAS_TYPE]->(t:Type)"
+			+ " where ID(c) = $categoryId And ID(t) = $typeId"
+			+ " create (t)-[:HAS_PRODUCT]->(p)"
+			+ " return ID(p)")
+	public Long createProduct ( @Param("description") String description, @Param("material") String material, @Param("name") String name,
+			@Param("origin") String origin, @Param("price")  int price, @Param("size") String[] size, @Param("stock") int stock, 
+			@Param("tags") String tags, @Param("image") String[] image, @Param("typeId") long typeId,  @Param("categoryId") long categoryId);
 	
 	
 }

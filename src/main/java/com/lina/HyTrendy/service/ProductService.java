@@ -56,6 +56,8 @@ public class ProductService {
 		
 	}
 	
+
+	
 //	public Map<String, String> setById (long id, String description, String material, String name, 
 //			String origin, int price, String[] size, int stock, String tags, String[] image) {
 //		Map<String, String> result = new HashMap<>();
@@ -82,9 +84,24 @@ public class ProductService {
 		
 	}
 	
-	public ProductExtenDto getProductExtendById ( long id) {
+	public Map<String, String> createProductByID ( String description,  String material,  String name,
+			 String origin,   int price,  String[] size,  int stock, 
+			 String tags,  String[] image,  long typeId,   long categoryId) {
+		Map<String, String> result = new HashMap<>();
+		Long idRepository = productReponsitory.createProduct(description, material, name, origin, price, size, stock, tags, image, typeId, categoryId);
+		if (idRepository == null) {
+			result.put("message", "Thêm Thất Bại");
+		} else {
+			result.put("message", "Thêm Thành Công");
+		}
+		return result;
+		
+	}
+	
+	public ProductExtenDto getProductExtendById ( Long id) {
 		ProductExtenDto pdto = new ProductExtenDto();
 		ProductExtendProjection productProjection = productReponsitory.getProductExtendById(id);
+		System.out.println(productProjection);
 		pdto = mapper.map(productProjection, ProductExtenDto.class);
 		return pdto;
 		
