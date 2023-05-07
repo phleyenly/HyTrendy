@@ -69,5 +69,11 @@ public interface ProductReponsitory extends Neo4jRepository<ProductEntity, Long>
 			@Param("origin") String origin, @Param("price")  int price, @Param("size") String[] size, @Param("stock") int stock, 
 			@Param("tags") String tags, @Param("image") String[] image, @Param("typeId") long typeId,  @Param("categoryId") long categoryId);
 	
+	@Query("MATCH (p:Product) WHERE ID(p)= $id"
+			+ " DELETE p")
+	public void deleteProuductById(@Param("id") Long id);
+	
+	@Query ("match (p:Product) where ID(p) =$id Return ID(p)")
+	public Long getIdProduct (@Param("id") long id);
 	
 }

@@ -98,6 +98,18 @@ public class ProductService {
 		
 	}
 	
+	public Map<String, String> deleteProductById (Long id) {
+		Map<String, String> result = new HashMap<>();
+		productReponsitory.deleteById(id);
+		Long idProduct = productReponsitory.getIdProduct(id);
+		if(idProduct == null) {
+			result.put("message", "Xoá Thành Công");
+		} else {
+			result.put("message", "Xoá Thất Bại");
+		}
+		return result;
+	}
+	
 	public ProductExtenDto getProductExtendById ( Long id) {
 		ProductExtenDto pdto = new ProductExtenDto();
 		ProductExtendProjection productProjection = productReponsitory.getProductExtendById(id);

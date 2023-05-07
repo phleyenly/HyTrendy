@@ -3,6 +3,7 @@ package com.lina.HyTrendy.api;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,6 +65,10 @@ public class Product {
 			p.getOrigin(), p.getPrice(), p.getSize(), p.getStock(), p.getTags(), p.getImage(), p.getTypeId(), p.getCategoryId());
 	}
 	
+	@DeleteMapping("/product")
+	public Map<String, String> deleteProduct (@RequestBody Long id) {
+		return productService.deleteProductById(id);
+	}
 ////	@GetMapping("/product")
 ////	public List<ProductDto> findAllProduct(){
 ////		return productService.findAll();
