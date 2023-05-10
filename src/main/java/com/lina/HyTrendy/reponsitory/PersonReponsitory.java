@@ -24,4 +24,6 @@ public interface PersonReponsitory extends Neo4jRepository<PersonEntity, Long> {
 	@Query("MATCH (p:Person) Return p")
 	public List<PersonEntity> getAll();
 
+	public PersonEntity findByUsername(String username);
+
 }

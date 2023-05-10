@@ -17,10 +17,10 @@ public class PersonEntity {
 	private Long id;
 	
 	@Property("username")
-	private String userName;
+	private String username;
 	
 	@Property("password")
-	private String passWord;
+	private String password;
 	
 	@Property("name")
 	private String name;

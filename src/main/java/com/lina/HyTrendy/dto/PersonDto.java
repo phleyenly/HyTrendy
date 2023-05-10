@@ -10,9 +10,9 @@ import lombok.Data;
 public class PersonDto {
 	private Long id;
 	
-	private String userName;
+	private String username;
 	
-	private String passWord;
+	private String password;
 	
 	private String name;
 	
