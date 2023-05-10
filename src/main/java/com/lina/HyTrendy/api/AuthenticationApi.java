@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lina.HyTrendy.config.JwtUtil;
-import com.lina.HyTrendy.dto.AuthenticaionResponeDto;
 import com.lina.HyTrendy.dto.LoginDto;
 import com.lina.HyTrendy.service.UserDetailsServiceImpl;
 
