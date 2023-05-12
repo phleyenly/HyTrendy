@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.lina.HyTrendy.config.JwtUtil;
 import com.lina.HyTrendy.dto.AuthenticationResponeDto;
 import com.lina.HyTrendy.dto.LoginDto;
+import com.lina.HyTrendy.dto.LoginResponeDto;
 import com.lina.HyTrendy.dto.PersonDto;
 import com.lina.HyTrendy.service.PersonService;
 import com.lina.HyTrendy.service.UserDetailsServiceImpl;
@@ -32,11 +33,18 @@ public class AuthenticationApi {
 	private final PersonService personService;
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login (@RequestBody LoginDto auth) {
+	public ResponseEntity<?> login (@RequestBody LoginDto auth) {
 		UserDetails user =   userDetailsServiceImpl.loadUserByUsername(auth.getUsername());
 		 
 		 if(user != null && passwordEncoder.matches(auth.getPassword(), user.getPassword())) {
-			 return ResponseEntity.ok(jwtUtil.generateToken(user.getUsername()));
+			 LoginResponeDto loginReq = new LoginResponeDto();
+			 loginReq.setToken(jwtUtil.generateToken(user.getUsername())) ;
+			 loginReq.setUsername(user.getUsername());
+			 loginReq.setRole(personService.findByUsername(user.getUsername()).getRole());
+			 
+			 System.out.println(loginReq);
+			 
+			 return ResponseEntity.ok(loginReq);
 		 }
 		 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Username or password is not correct");
 	}
