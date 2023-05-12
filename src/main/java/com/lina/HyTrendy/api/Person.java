@@ -2,6 +2,7 @@ package com.lina.HyTrendy.api;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ public class Person {
 	private final PersonService personService;
 	
 	@GetMapping("/role")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public List<String> getRole () {
 		return personService.getRole();
 	}

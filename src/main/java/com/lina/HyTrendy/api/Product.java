@@ -3,6 +3,7 @@ package com.lina.HyTrendy.api;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ public class Product {
 	private final CategoryAndTypeNameService ctName;
 	
 	@GetMapping("/product")
+	@PreAuthorize("hasAuthority('ADMIN') || hasAuthority('CLIENT') ")
 	public List<ProductDto> getAllProduct(){
 		return productService.getAll();
 	}

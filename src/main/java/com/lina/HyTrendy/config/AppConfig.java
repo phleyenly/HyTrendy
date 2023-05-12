@@ -43,9 +43,16 @@ public class AppConfig {
 		http.authorizeHttpRequests()
 			.requestMatchers("/api/person").permitAll()
 			.requestMatchers("/api/login").permitAll()
+			.requestMatchers("/api/category").permitAll()
 			.anyRequest().authenticated();
 		
 //		http.formLogin(); sài form login của server
+//		
+		http.exceptionHandling().authenticationEntryPoint((req, res, ex) -> {
+			res.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+		});
+		
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 		

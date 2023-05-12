@@ -31,5 +31,12 @@ public class PersonService {
 		return mapper.map(result, PersonDto.class);
 		
 	}
+	
+	public PersonDto findByUsername(String username) {
+		PersonDto person = new PersonDto();
+		PersonEntity personEtt = personReponsitory.findByUsername(username);
+		person = mapper.map(personEtt, PersonDto.class);
+		return person;
+	}
 
 }
