@@ -48,4 +48,20 @@ public class PersonService {
 		}
 		return person;
 	}
+	
+	public  List<PersonDto> getByRole(String role) {
+		List<PersonDto> person = new ArrayList<>();
+		List<PersonEntity> personE = personReponsitory.getByRole(role);
+		for(PersonEntity p: personE) {
+			person.add(mapper.map(p, PersonDto.class));
+		}
+		return person;
+	}
+	
+	public PersonDto getPersonById(long id) {
+		PersonDto person = new PersonDto();
+		PersonEntity personEtt = personReponsitory.getPersonById(id);
+		person = mapper.map(personEtt, PersonDto.class);
+		return person;
+	}
 }

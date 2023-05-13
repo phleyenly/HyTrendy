@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lina.HyTrendy.dto.PersonDto;
@@ -31,8 +33,27 @@ public class Person {
 		return personService.savePerson(person);
 	}
 	
-	@GetMapping("person")
-	public List<PersonDto> getAll() {
-		return personService.getAll();
+//	@GetMapping("/person")
+//	public List<PersonDto> getAll() {
+//		return personService.getAll();
+//	}
+	
+//	@GetMapping("/person/{role}")
+//	public List<PersonDto> getByRole(@PathVariable(name = "role", required = false) String role) {
+//		return personService.getByRole(role);
+//	}
+	
+	@GetMapping("/person")
+	public List<PersonDto> getPerson(@RequestParam(name = "role", required = false) String role) {
+		if(role == null) {
+			return personService.getAll();
+		} else {
+			return personService.getByRole(role);
+		}
+	}
+	
+	@GetMapping("/person/{id}")
+	public PersonDto getPersonById(@PathVariable(name = "id", required = false) Long id) {
+		return personService.getPersonById(id);
 	}
 }

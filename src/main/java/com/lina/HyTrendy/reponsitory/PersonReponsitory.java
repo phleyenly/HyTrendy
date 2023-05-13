@@ -8,6 +8,7 @@ import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.lina.HyTrendy.dto.PersonDto;
 import com.lina.HyTrendy.entity.PersonEntity;
 import com.lina.HyTrendy.projection.CartItemProjection;
 
@@ -24,6 +25,14 @@ public interface PersonReponsitory extends Neo4jRepository<PersonEntity, Long> {
 	
 	@Query("MATCH (p:Person) Return p")
 	public List<PersonEntity> getAll();
+	
+	@Query("MATCH (p:Person) WHERE p.role = $role"
+			+ " RETURN p")
+	public List<PersonEntity> getByRole(@Param("role") String role);
+	
+	@Query("MATCH (p:Person) WHERE ID(p) = $id"
+			+ " RETURN p")
+	public PersonEntity getPersonById(@Param("id") Long id);
 
 	public PersonEntity findByUsername(String username);
 	
