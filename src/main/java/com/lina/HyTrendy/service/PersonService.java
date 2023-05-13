@@ -1,5 +1,6 @@
 package com.lina.HyTrendy.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -39,4 +40,12 @@ public class PersonService {
 		return person;
 	}
 
+	public  List<PersonDto> getAll() {
+		List<PersonDto> person = new ArrayList<>();
+		List<PersonEntity> personE = personReponsitory.getAll();
+		for(PersonEntity p: personE) {
+			person.add(mapper.map(p, PersonDto.class));
+		}
+		return person;
+	}
 }

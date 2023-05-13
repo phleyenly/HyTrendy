@@ -30,4 +30,9 @@ public class Person {
 	public PersonDto savePerson (@RequestBody PersonDto person) {
 		return personService.savePerson(person);
 	}
+	
+	@GetMapping("person")
+	public List<PersonDto> getAll() {
+		return personService.getAll();
+	}
 }

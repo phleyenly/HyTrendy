@@ -1,6 +1,7 @@
 package com.lina.HyTrendy.reponsitory;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
@@ -25,5 +26,7 @@ public interface PersonReponsitory extends Neo4jRepository<PersonEntity, Long> {
 	public List<PersonEntity> getAll();
 
 	public PersonEntity findByUsername(String username);
+	
+	
 
 }
