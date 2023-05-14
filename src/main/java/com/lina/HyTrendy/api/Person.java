@@ -1,11 +1,13 @@
 package com.lina.HyTrendy.api;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,5 +57,10 @@ public class Person {
 	@GetMapping("/person/{id}")
 	public PersonDto getPersonById(@PathVariable(name = "id", required = false) Long id) {
 		return personService.getPersonById(id);
+	}
+	
+	@PutMapping("/person/{id}")
+	public Map<String, String> editPersonById(@PathVariable(name = "id", required = true) Long id, @RequestBody PersonDto person ) {
+		return personService.updateById(id, person.getAddress(), person.getName(), person.getPhone(), person.getRole(), person.getUsername(), person.getPassword());
 	}
 }

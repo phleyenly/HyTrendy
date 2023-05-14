@@ -1,9 +1,12 @@
 package com.lina.HyTrendy.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +33,21 @@ public class PersonService {
 		PersonEntity result = personReponsitory.save(personEntity);
 		
 		return mapper.map(result, PersonDto.class);
+		
+	}
+	
+	// hàm edit person 
+	public Map<String, String> updateById(long id, String address, String name, String phone, 
+			 String role, String username,  String password) {
+		Map<String, String> result = new HashMap<>();
+		String passwordEnding = passwordEncoder.encode(password);
+		Long idReq = personReponsitory.updateById(id, address, name, phone, role, username, passwordEnding);
+		if(idReq ==null) {
+			result.put("message", "Chỉnh Sửa Thất Bại");
+		} else {
+			result.put("message", "Chỉnh Sửa Thành Công");
+		}
+		return result;
 		
 	}
 	

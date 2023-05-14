@@ -36,6 +36,10 @@ public interface PersonReponsitory extends Neo4jRepository<PersonEntity, Long> {
 
 	public PersonEntity findByUsername(String username);
 	
-	
+	@Query("MATCH (p:Person) WHERE ID(p) = $id"
+			+ " SET p.address= $address, p.name= $name, p.phone= $phone, p.role= $role, p.username= $username, p.password = $password"
+			+ " RETURN ID(p)")
+	public Long updateById (@Param("id") long id, @Param("address") String address, @Param("name")  String name, @Param("phone") String phone, 
+			@Param("role") String role, @Param("username") String username, @Param("password") String password);
 
 }
