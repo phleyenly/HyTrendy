@@ -27,12 +27,26 @@ public class PersonService {
 		return personReponsitory.getRole();
 	}
 	
-	public PersonDto savePerson(PersonDto person) {
+//	public PersonDto savePerson(PersonDto person) {
+//		PersonEntity personEntity = mapper.map(person, PersonEntity.class);
+//		personEntity.setPassword(passwordEncoder.encode(person.getPassword()));
+//		PersonEntity result = personReponsitory.save(personEntity);
+//		
+//		return mapper.map(result, PersonDto.class);
+//		
+//	}
+	
+	public Map<String, String> savePerson(PersonDto person) {
+		Map<String, String> result = new HashMap<>();
 		PersonEntity personEntity = mapper.map(person, PersonEntity.class);
 		personEntity.setPassword(passwordEncoder.encode(person.getPassword()));
-		PersonEntity result = personReponsitory.save(personEntity);
-		
-		return mapper.map(result, PersonDto.class);
+		PersonEntity Personresult = personReponsitory.save(personEntity);
+		if(Personresult.getId()== null) {
+			result.put("message", "Thêm Thất Bại");
+		} else {
+			result.put("message", "Thêm Thành Công");
+		}
+		return result;
 		
 	}
 	
@@ -49,6 +63,20 @@ public class PersonService {
 		}
 		return result;
 		
+	}
+	
+	//hàm delete person
+	
+	public Map<String, String> deleteById(Long id) {
+		Map<String, String> result = new HashMap<>();
+		personReponsitory.deleteById(id);
+		PersonEntity Person = personReponsitory.getPersonById(id);
+		if(Person == null) {
+			result.put("message", "Xóa Thành Công");
+		} else {
+			result.put("message", "Xóa Thất Bại");
+		}
+		return result;
 	}
 	
 	public PersonDto findByUsername(String username) {
@@ -81,5 +109,8 @@ public class PersonService {
 		PersonEntity personEtt = personReponsitory.getPersonById(id);
 		person = mapper.map(personEtt, PersonDto.class);
 		return person;
+		
 	}
+	
+	
 }

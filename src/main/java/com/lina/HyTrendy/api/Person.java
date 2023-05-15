@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +32,7 @@ public class Person {
 	}
 
 	@PostMapping("/person")
-	public PersonDto savePerson (@RequestBody PersonDto person) {
+	public Map<String, String> savePerson (@RequestBody PersonDto person) {
 		return personService.savePerson(person);
 	}
 	
@@ -62,5 +63,10 @@ public class Person {
 	@PutMapping("/person/{id}")
 	public Map<String, String> editPersonById(@PathVariable(name = "id", required = true) Long id, @RequestBody PersonDto person ) {
 		return personService.updateById(id, person.getAddress(), person.getName(), person.getPhone(), person.getRole(), person.getUsername(), person.getPassword());
+	}
+	
+	@DeleteMapping("/person/{id}")
+	public Map<String, String> deleteById(@PathVariable(name = "id", required = true) Long id) {
+		return personService.deleteById(id);
 	}
 }
