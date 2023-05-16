@@ -1,7 +1,9 @@
 package com.lina.HyTrendy.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,28 @@ public class CartService {
 			cartDto.add(mapper.map(c, CartItemDto.class));
 		}
 		return cartDto;
+	}
+	
+	public Map<String, String> createCartByUsername(Long idProduct, String username, int quanity,String size) {
+		Map<String, String> result = new HashMap<>();
+		Long id = cartReponsitory.createCartByUsername(idProduct, username, quanity, size);
+		if(id!= null) {
+			result.put("message", "Sản Phẩm Đã Được Thêm Vào Giỏ Hàng");
+		} else {
+			result.put("message", "Thêm vào giỏ hàng Thất Bại");
+		}
+		return result;
+	}
+	
+	public Map<String, String> deleteCartByIdProduct(Long idProduct, Long idPerson) {
+		Map<String, String> result = new HashMap<>();
+		String response = cartReponsitory.deleteCartByIdProduct(idProduct, idPerson);
+		if(response != null) {
+			result.put("message", "Sản Phẩm Đã Được Xóa Khỏi Giỏ Hàng");
+		} else {
+			result.put("message", "Xóa Thất Bại");
+		}
+		return result;
 	}
 
 }
