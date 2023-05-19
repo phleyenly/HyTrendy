@@ -16,7 +16,7 @@ import com.lina.HyTrendy.projection.CartItemProjection;
 public interface PersonReponsitory extends Neo4jRepository<PersonEntity, Long> {//rename thanh person trc di
 	@Query("MATCH (p:Person)-[h:HAS_CART]->(i:Product)"
 			+ " WHERE ID(p) = $id"
-			+ " RETURN i, h, i.name as name, i.price as price, ID(i) as idProduct, h.quantity as quantity, h.size as size")
+			+ " RETURN i, h, i.name as name, i.price as price, ID(i) as idProduct, h.quantity as quantity, h.size as size, ID(h) as IdCart")
 	public List<CartItemProjection> getCartByPersonById ( @Param("id") Long id);
 	
 	//tạo cart 
@@ -27,12 +27,24 @@ public interface PersonReponsitory extends Neo4jRepository<PersonEntity, Long> {
 			+ " RETURN ID(h)")
 	public Long createCartByUsername(@Param("idProduct") Long idProduct, @Param("username") String usernam, @Param("quantity") int quanity, @Param("size") String size);
 	
+	//set quantity trong cart 
+	@Query("MATCH (p:Person) -[h:HAS_CART]->(pr:Product)"
+			+ " WHERE ID(h) = $idCart"
+			+ " SET h.quantity= $quantity"
+			+ " RETURN ID(h)")
+	public Long setQuantityCart(@Param("idCart") Long idCart, @Param("quantity") int quantity);
+	
+	
 	//xóa product trong cart
 	@Query("MATCH (p:Person)-[h:HAS_CART]->(pr:Product)"
-			+ " WHERE ID(pr) = $idProduct AND ID(p) = $idPerson"
+			+ " WHERE ID(p) = $idPerson AND ID(h) = $idCart"
 			+ " DELETE h"
 			+ " RETURN 'Xóa thành công!'")
-	public String deleteCartByIdProduct(@Param("idProduct") Long idProduct, @Param("idPerson") Long idPerson);
+	public String deleteCartByIdCart(@Param("idCart") Long idCart, @Param("idPerson") Long idPerson);
+	
+	
+	
+	
 	
 	@Query("MATCH (p:Person) "
 			+ "RETURN distinct p.role")

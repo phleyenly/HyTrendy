@@ -41,17 +41,39 @@ public class Cart {
 	
 	@PostMapping("/cart")
 	public Map<String, String> createCartByUsername(@RequestBody CartInfoDto cart) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = auth.getName();
-		return cartService.createCartByUsername(cart.getId(), username, cart.getQuantity(), cart.getSize());
-	}
-	
-	@DeleteMapping("/cart/{id}")
-	public Map<String, String> deleteCartByIdProduct (@PathVariable (name = "id", required = true) Long id) {
+		Boolean check = true;
+		Long idCart = 0L;
+		int quantity = 0;
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		PersonDto person = personService.findByUsername(username);
-		return cartService.deleteCartByIdProduct(id, person.getId());
+		List<CartItemDto> listCart = cartService.getCartByPersonId(person.getId());
+//		System.out.println(listCart.get(0).getIdProduct());
+//		System.out.println(listCart.get(0).getSize());
+//		System.out.println(cart.getId());
+//		System.out.println(cart.getSize());
+		for(int i =0; i<listCart.size(); i++) {
+			if(listCart.get(i).getIdProduct().equals(cart.getId()) && listCart.get(i).getSize().equals(cart.getSize())) {
+				check = false;
+				idCart = listCart.get(i).getIdCart();
+				quantity = listCart.get(i).getQuantity();
+				break;
+			} 
+		}
+		if(check == true) {
+			return cartService.createCartByUsername(cart.getId(), username, cart.getQuantity(), cart.getSize());
+		} else {
+			return cartService.setQuantityCart(idCart, quantity + cart.getQuantity() );
+		}
+		
+	}
+	
+	@DeleteMapping("/cart/{id}")
+	public Map<String, String> deleteCartByIdCart (@PathVariable (name = "id", required = true) Long id) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+		PersonDto person = personService.findByUsername(username);
+		return cartService.deleteCartByIdCart(id, person.getId());
 	}
 	
 }

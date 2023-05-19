@@ -9,5 +9,6 @@ public class CartItemProjection {
 	private String name;
 	private String size;
 	private Long idProduct;
+	private Long IdCart;
 
 }

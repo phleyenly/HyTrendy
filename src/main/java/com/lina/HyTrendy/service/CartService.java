@@ -40,9 +40,20 @@ public class CartService {
 		return result;
 	}
 	
-	public Map<String, String> deleteCartByIdProduct(Long idProduct, Long idPerson) {
+	public Map<String, String> setQuantityCart(Long idCart, int quantity) {
 		Map<String, String> result = new HashMap<>();
-		String response = cartReponsitory.deleteCartByIdProduct(idProduct, idPerson);
+		Long id = cartReponsitory.setQuantityCart(idCart, quantity);
+		if(id!= null) {
+			result.put("message", "Sản Phẩm Đã Được Thêm Vào Giỏ Hàng");
+		} else {
+			result.put("message", "Thêm vào giỏ hàng Thất Bại");
+		}
+		return result;
+	}
+	
+	public Map<String, String> deleteCartByIdCart(Long idCart, Long idPerson) {
+		Map<String, String> result = new HashMap<>();
+		String response = cartReponsitory.deleteCartByIdCart(idCart, idPerson);
 		if(response != null) {
 			result.put("message", "Sản Phẩm Đã Được Xóa Khỏi Giỏ Hàng");
 		} else {

@@ -9,4 +9,5 @@ public class CartItemDto {
 	private String name;
 	private String size;
 	private Long idProduct;
+	private Long IdCart;
 }
