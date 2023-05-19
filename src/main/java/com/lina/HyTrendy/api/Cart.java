@@ -48,10 +48,6 @@ public class Cart {
 		String username = auth.getName();
 		PersonDto person = personService.findByUsername(username);
 		List<CartItemDto> listCart = cartService.getCartByPersonId(person.getId());
-//		System.out.println(listCart.get(0).getIdProduct());
-//		System.out.println(listCart.get(0).getSize());
-//		System.out.println(cart.getId());
-//		System.out.println(cart.getSize());
 		for(int i =0; i<listCart.size(); i++) {
 			if(listCart.get(i).getIdProduct().equals(cart.getId()) && listCart.get(i).getSize().equals(cart.getSize())) {
 				check = false;
