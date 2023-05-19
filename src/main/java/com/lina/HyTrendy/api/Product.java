@@ -35,7 +35,7 @@ public class Product {
 	private final CategoryAndTypeNameService ctName;
 	
 	@GetMapping("/product")
-	@PreAuthorize("hasAuthority('ADMIN') || hasAuthority('CLIENT') ")
+//	@PreAuthorize("hasAuthority('ADMIN') || hasAuthority('CLIENT') ")
 	public List<ProductDto> getAllProduct(){
 		return productService.getAll();
 	}
