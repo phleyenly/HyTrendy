@@ -39,29 +39,36 @@ public class Cart {
 		
 	}
 	
+//	@PostMapping("/cart")
+//	public Map<String, String> createCartByUsername(@RequestBody CartInfoDto cart) {
+//		Boolean check = true;
+//		Long idCart = 0L;
+//		int quantity = 0;
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		String username = auth.getName();
+//		PersonDto person = personService.findByUsername(username);
+//		List<CartItemDto> listCart = cartService.getCartByPersonId(person.getId());
+//		for(int i =0; i<listCart.size(); i++) {
+//			if(listCart.get(i).getIdProduct().equals(cart.getId()) && listCart.get(i).getSize().equals(cart.getSize())) {
+//				check = false;
+//				idCart = listCart.get(i).getIdCart();
+//				quantity = listCart.get(i).getQuantity();
+//				break;
+//			} 
+//		}
+//		if(check == true) {
+//			return cartService.createCartByUsername(cart.getId(), username, cart.getQuantity(), cart.getSize());
+//		} else {
+//			return cartService.setQuantityCart(idCart, quantity + cart.getQuantity() );
+//		}
+//		
+//	}
+	
 	@PostMapping("/cart")
 	public Map<String, String> createCartByUsername(@RequestBody CartInfoDto cart) {
-		Boolean check = true;
-		Long idCart = 0L;
-		int quantity = 0;
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
-		PersonDto person = personService.findByUsername(username);
-		List<CartItemDto> listCart = cartService.getCartByPersonId(person.getId());
-		for(int i =0; i<listCart.size(); i++) {
-			if(listCart.get(i).getIdProduct().equals(cart.getId()) && listCart.get(i).getSize().equals(cart.getSize())) {
-				check = false;
-				idCart = listCart.get(i).getIdCart();
-				quantity = listCart.get(i).getQuantity();
-				break;
-			} 
-		}
-		if(check == true) {
-			return cartService.createCartByUsername(cart.getId(), username, cart.getQuantity(), cart.getSize());
-		} else {
-			return cartService.setQuantityCart(idCart, quantity + cart.getQuantity() );
-		}
-		
+		return cartService.createCartByUsername(cart.getId(), username, cart.getQuantity(), cart.getSize());
 	}
 	
 	@DeleteMapping("/cart/{id}")
