@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+import com.lina.HyTrendy.entity.PersonEntity;
 import com.lina.HyTrendy.entity.ProductEntity;
 
 import lombok.Data;
@@ -16,6 +17,8 @@ public class OrderDto {
 	
 	private LocalDate date;
 	
-	private List<ProductEntity> products;
+	private List<ProductDto> products;
+	
+	private PersonDto person;
 
 }

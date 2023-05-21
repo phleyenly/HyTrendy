@@ -26,5 +26,8 @@ public class OrderEntity {
 	
 	@Relationship(type = "HAS_PRODUCT_ORDER", direction = Relationship.Direction.OUTGOING)
 	private List<ProductEntity> products;
+	
+	@Relationship(type = "HAS_ORDER", direction = Relationship.Direction.INCOMING)
+	private PersonEntity person;
 
 }

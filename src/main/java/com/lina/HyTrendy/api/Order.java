@@ -35,12 +35,16 @@ public class Order {
 		return orderService.createOrder(person.getId(), status, date);
 	}
 	
-	@GetMapping("/order")
-	public List<OrderDto> getAllOrder() {
+	@GetMapping("username/order")
+	public List<OrderDto> getOrderByUsername() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
-		PersonDto person = personService.findByUsername(username);
-		return orderService.getAllOrder(person.getId());
+		return orderService.getOrderByUsername(username);
+	}
+	
+	@GetMapping("order")
+	public List<OrderDto> findAllOrder() {
+		return orderService.findAllOrder();
 	}
 
 }

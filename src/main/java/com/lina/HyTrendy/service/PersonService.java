@@ -38,6 +38,12 @@ public class PersonService {
 	
 	public Map<String, String> savePerson(PersonDto person) {
 		Map<String, String> result = new HashMap<>();
+		boolean check = personReponsitory.existsByUsername(person.getUsername());
+		if(check) {
+			result.put("message", "Username Đã Tồn Tại ");
+			return result;
+		}
+		
 		PersonEntity personEntity = mapper.map(person, PersonEntity.class);
 		personEntity.setPassword(passwordEncoder.encode(person.getPassword()));
 		PersonEntity Personresult = personReponsitory.save(personEntity);

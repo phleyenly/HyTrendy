@@ -34,14 +34,22 @@ public class OrderService {
 		return result;
 	}
 	
-	public List<OrderDto> getAllOrder (Long idPerson)  {
+	public List<OrderDto> getOrderByUsername (String username)  {
 		List<OrderDto> orderDto = new ArrayList<>();
-		List<OrderEntity> orderEntity = orderReponsitory.getAllOrder(idPerson);
+		List<OrderEntity> orderEntity = orderReponsitory.getOrderByUsername(username);
 		for (OrderEntity order : orderEntity) {
 			orderDto.add(mapper.map(order, OrderDto.class));
 		}
 		return orderDto;
 	}
 	
-
+	
+	public List<OrderDto> findAllOrder ()  {
+		List<OrderDto> orderDto = new ArrayList<>();
+		List<OrderEntity> orderEntity = orderReponsitory.findAll();
+		for (OrderEntity order : orderEntity) {
+			orderDto.add(mapper.map(order, OrderDto.class));
+		}
+		return orderDto;
+	}
 }
