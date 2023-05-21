@@ -2,6 +2,7 @@ package com.lina.HyTrendy.reponsitory;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
@@ -23,6 +24,11 @@ public interface OrderReponsitory extends Neo4jRepository<OrderEntity, Long>  {
 			+ " RETURN ID(o) AS result"
 			+ " LIMIT 1")
 	public Long createOrder(@Param("idPerson") Long idPerson, @Param("status") String status, @Param("date") LocalDate date);
+	
+	@Query("MATCH (p:Person)-[h1:HAS_ORDER]-> (o:Order)-[h2:HAS_PRODUCT_ORDER]->(pr:Product)"
+			+ " WHERE ID(p)=15"
+			+ " Return o, collect(h2), collect(pr) AS products")
+	public List<OrderEntity> getAllOrder(@Param("idPersom") Long idPerson);
 	
 
 }
