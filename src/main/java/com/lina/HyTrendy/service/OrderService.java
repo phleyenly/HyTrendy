@@ -3,6 +3,7 @@ package com.lina.HyTrendy.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.lina.HyTrendy.dto.OrderDto;
+import com.lina.HyTrendy.dto.OrderExtendDto;
 import com.lina.HyTrendy.entity.OrderEntity;
+import com.lina.HyTrendy.projection.OrderProjection;
+import com.lina.HyTrendy.projection.ProductOrderProjection;
 import com.lina.HyTrendy.reponsitory.OrderReponsitory;
 
 import lombok.RequiredArgsConstructor;
@@ -51,5 +55,30 @@ public class OrderService {
 			orderDto.add(mapper.map(order, OrderDto.class));
 		}
 		return orderDto;
+	}
+	
+//	public List<OrderDto> getAllOrder ()  {
+//		List<OrderDto> orderEDto = new ArrayList<>();
+//		List<OrderEntity> orderProjection = orderReponsitory.getAllOrder();
+//		for (OrderEntity order : orderProjection) {
+//			orderEDto.add(mapper.map(order, OrderDto.class));
+//		}
+//		return orderEDto;
+//	}
+	
+	public List<OrderExtendDto> getAllOrder() {
+		List<OrderExtendDto> order = new ArrayList<>();
+		List<OrderEntity> orderEnity = orderReponsitory.getAllOrder();
+		for (OrderEntity orderE : orderEnity) {
+			order.add(mapper.map(orderE, OrderExtendDto.class));
+			
+		}
+		
+		for (OrderExtendDto o : order) {
+			List<ProductOrderProjection> product = orderReponsitory.getProductByIdOrder(o.getId());
+			o.setProducts(product);
+		}
+		
+		return order;
 	}
 }
