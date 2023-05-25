@@ -12,9 +12,14 @@ import lombok.Data;
 @Data
 public class OrderExtendDto {
 	
+	private Long id;
+	
+	private String status;
+	
+	private LocalDate date;
+	
 	private PersonDto person;
 	
-	private OrderDto order;
 	
 	private List<ProductOrderProjection> products;
 	

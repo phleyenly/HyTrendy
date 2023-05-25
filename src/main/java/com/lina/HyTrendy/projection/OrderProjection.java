@@ -13,9 +13,14 @@ import lombok.Data;
 @Data
 public class OrderProjection {
 	
+	private Long id;
+	
+	private String status;
+	
+	private LocalDate date;
+	
 	private PersonEntity person;
 	
-	private OrderEntity order;
 	
 	private List<ProductOrderProjection> products;
 	

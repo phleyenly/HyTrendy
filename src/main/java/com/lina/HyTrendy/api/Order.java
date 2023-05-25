@@ -44,7 +44,7 @@ public class Order {
 	}
 	
 	@GetMapping("/order")
-	public List<OrderDto> findAllOrder() {
+	public List<OrderExtendDto> findAllOrder() {
 		return orderService.getAllOrder();
 	}
 
