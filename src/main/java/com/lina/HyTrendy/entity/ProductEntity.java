@@ -1,5 +1,7 @@
 package com.lina.HyTrendy.entity;
 
+import java.util.List;
+
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
@@ -35,7 +37,7 @@ public class ProductEntity {
 	private String description;
 	
 	@Property("image")
-	private String[] image;
+	private List<String> image;
 	
 	@Property("material")
 	private String material;

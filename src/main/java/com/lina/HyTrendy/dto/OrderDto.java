@@ -17,8 +17,14 @@ public class OrderDto {
 	
 	private LocalDate date;
 	
-	private List<ProductDto> products;
+	private List<ProductOrderDto> products;
+
+	private Long personId;
 	
-	private PersonDto person;
+	private String name;
+	
+	private String address;
+	
+	private String phone;
 
 }

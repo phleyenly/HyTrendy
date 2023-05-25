@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.lina.HyTrendy.entity.OrderEntity;
 import com.lina.HyTrendy.projection.OrderProjection;
+import com.lina.HyTrendy.projection.ProductOrderProjection;
 
 @Repository
 public interface OrderReponsitory extends Neo4jRepository<OrderEntity, Long>  {
@@ -31,18 +32,28 @@ public interface OrderReponsitory extends Neo4jRepository<OrderEntity, Long>  {
 			+ " Return o, collect(h2), collect(pr) AS products")
 	public List<OrderEntity> getOrderByUsername(@Param("username") String username);
 	
-	@Query("MATCH (p:Person)-[h1:HAS_ORDER]-(o:Order)-[h2:HAS_PRODUCT_ORDER]->(pr:Product)"
+	@Query("MATCH (p:Person)-[h1:HAS_ORDER]-(o:Order)"
 			+ " RETURN p, o,"
-			+ " collect({"
-			+ "    quantity: h2.quantity,"
-			+ "    size: h2.size,"
-			+ "    name: pr.name,"
-			+ "    image: pr.image,"
-			+ "    description: pr.description,"
-			+ "    price: pr.price,"
-			+ "    id: ID(pr)"
-			+ "}) as products")
-	public List<OrderEntity> getAllOrder();
+			+ " 	ID(p) AS personId,"
+			+ "		p.name AS name,"
+			+ "		p.address AS address,"
+			+ "		p.phone AS phone")
+	public List<OrderProjection> getAllOrder();
 	
 
+	@Query("MATCH (o:Order)-[h2:HAS_PRODUCT_ORDER]->(pr:Product)"
+			+ " WHERE ID(o) = $id"
+			+ " RETURN "
+			+ " 	h2.quantity AS quantity,"
+			+ " 	ID(pr) AS productId,"
+			+ " 	pr.name AS name,"
+			+ " 	pr.price AS price,"
+			+ " 	pr.stock AS stock,"
+			+ " 	pr.size AS size,"
+			+ " 	pr.tags AS tags,"
+			+ " 	pr.origin AS origin,"
+			+ " 	pr.description AS description,"
+			+ " 	pr.image AS image,"
+			+ " 	pr.material AS material")
+	public List<ProductOrderProjection> getProductByOrderId(@Param("id") Long id);
 }

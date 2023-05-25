@@ -72,7 +72,7 @@ public class ProductService {
 //	}
 	
 	public Map<String, String> updateByID (long id, String description, String material, String name, 
-			String origin, int price, String[] size, int stock, String tags, String[] image, long idType) {
+			String origin, int price, String[] size, int stock, String tags, List<String> image, long idType) {
 		Map<String, String> result = new HashMap<>();
 		Long idRepository = productReponsitory.updateByID(id, description, material, name, origin, price, size, stock, tags, image, idType);
 		if (idRepository == null) {
@@ -86,7 +86,7 @@ public class ProductService {
 	
 	public Map<String, String> createProductByID ( String description,  String material,  String name,
 			 String origin,   int price,  String[] size,  int stock, 
-			 String tags,  String[] image,  long typeId,   long categoryId) {
+			 String tags,  List<String> image,  long typeId,   long categoryId) {
 		Map<String, String> result = new HashMap<>();
 		Long idRepository = productReponsitory.createProduct(description, material, name, origin, price, size, stock, tags, image, typeId, categoryId);
 		if (idRepository == null) {

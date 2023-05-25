@@ -12,13 +12,20 @@ import lombok.Data;
 
 @Data
 public class OrderProjection {
+
+	private Long id;
 	
-	private PersonEntity person;
+	private String status;
 	
-	private OrderEntity order;
+	private LocalDate date;
 	
 	private List<ProductOrderProjection> products;
 	
+	private Long personId;
 	
-
+	private String name;
+	
+	private String address;
+	
+	private String phone;
 }

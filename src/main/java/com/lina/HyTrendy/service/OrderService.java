@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import com.lina.HyTrendy.dto.OrderDto;
 import com.lina.HyTrendy.dto.OrderExtendDto;
+import com.lina.HyTrendy.dto.ProductOrderDto;
 import com.lina.HyTrendy.entity.OrderEntity;
 import com.lina.HyTrendy.projection.OrderProjection;
+import com.lina.HyTrendy.projection.ProductOrderProjection;
 import com.lina.HyTrendy.reponsitory.OrderReponsitory;
 
 import lombok.RequiredArgsConstructor;
@@ -56,11 +58,13 @@ public class OrderService {
 	}
 	
 	public List<OrderDto> getAllOrder ()  {
-		List<OrderDto> orderEDto = new ArrayList<>();
-		List<OrderEntity> orderProjection = orderReponsitory.getAllOrder();
-		for (OrderEntity order : orderProjection) {
-			orderEDto.add(mapper.map(order, OrderDto.class));
+		List<OrderDto> orderDto = new ArrayList<>();
+		List<OrderProjection> orderProjection = orderReponsitory.getAllOrder();
+		for (OrderProjection order : orderProjection) {
+			List<ProductOrderProjection> products = orderReponsitory.getProductByOrderId(order.getId());
+			order.setProducts(products);
+			orderDto.add(mapper.map(order, OrderDto.class));
 		}
-		return orderEDto;
+		return orderDto;
 	}
 }
