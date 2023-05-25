@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lina.HyTrendy.dto.OrderDto;
+import com.lina.HyTrendy.dto.OrderExtendDto;
 import com.lina.HyTrendy.dto.PersonDto;
 import com.lina.HyTrendy.service.OrderService;
 import com.lina.HyTrendy.service.PersonService;
@@ -35,16 +36,16 @@ public class Order {
 		return orderService.createOrder(person.getId(), status, date);
 	}
 	
-	@GetMapping("username/order")
+	@GetMapping("user/order")
 	public List<OrderDto> getOrderByUsername() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		return orderService.getOrderByUsername(username);
 	}
 	
-	@GetMapping("order")
+	@GetMapping("/order")
 	public List<OrderDto> findAllOrder() {
-		return orderService.findAllOrder();
+		return orderService.getAllOrder();
 	}
 
 }

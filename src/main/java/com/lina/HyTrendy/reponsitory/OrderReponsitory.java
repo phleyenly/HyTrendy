@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.lina.HyTrendy.entity.OrderEntity;
+import com.lina.HyTrendy.projection.OrderProjection;
 
 @Repository
 public interface OrderReponsitory extends Neo4jRepository<OrderEntity, Long>  {
@@ -29,6 +30,19 @@ public interface OrderReponsitory extends Neo4jRepository<OrderEntity, Long>  {
 			+ " WHERE p.username = $username"
 			+ " Return o, collect(h2), collect(pr) AS products")
 	public List<OrderEntity> getOrderByUsername(@Param("username") String username);
+	
+	@Query("MATCH (p:Person)-[h1:HAS_ORDER]-(o:Order)-[h2:HAS_PRODUCT_ORDER]->(pr:Product)"
+			+ " RETURN p, o,"
+			+ " collect({"
+			+ "    quantity: h2.quantity,"
+			+ "    size: h2.size,"
+			+ "    name: pr.name,"
+			+ "    image: pr.image,"
+			+ "    description: pr.description,"
+			+ "    price: pr.price,"
+			+ "    id: ID(pr)"
+			+ "}) as products")
+	public List<OrderEntity> getAllOrder();
 	
 
 }
