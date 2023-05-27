@@ -48,5 +48,10 @@ public interface OrderReponsitory extends Neo4jRepository<OrderEntity, Long>  {
 			+ " h.size as sizeBuy")
 	public List<ProductOrderProjection> getProductByIdOrder(@Param("idOrder") Long idOrder);
 	
+	@Query("MATCH (o:Order) WHERE ID(o)=$id"
+			+ " SET o.status =$status"
+			+ " RETURN 'ok'")
+	public String updateStatusOrderById(@Param("id") Long id, @Param("status") String status);
+	
 
 }

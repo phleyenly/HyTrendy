@@ -8,12 +8,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lina.HyTrendy.dto.OrderDto;
 import com.lina.HyTrendy.dto.OrderExtendDto;
 import com.lina.HyTrendy.dto.PersonDto;
+import com.lina.HyTrendy.dto.StatusOrderDto;
 import com.lina.HyTrendy.service.OrderService;
 import com.lina.HyTrendy.service.PersonService;
 
@@ -47,5 +50,9 @@ public class Order {
 	public List<OrderExtendDto> findAllOrder() {
 		return orderService.getAllOrder();
 	}
-
+	
+	@PutMapping("/order")
+	public Map<String, String> updateStatusOrderById(@RequestBody StatusOrderDto s ) {
+		return orderService.updateStatusOrderById(s.getId(), s.getStatus());
+	}
 }

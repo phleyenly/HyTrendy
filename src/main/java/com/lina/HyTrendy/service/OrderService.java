@@ -81,4 +81,28 @@ public class OrderService {
 		
 		return order;
 	}
+	
+	public Map<String, String> updateStatusOrderById (Long id,String status) {
+		Map<String, String> result = new HashMap<>();
+		List<String> statusOrder = new ArrayList<>();
+		statusOrder.add("Chờ Xác Nhận");
+		statusOrder.add("Chờ Lấy Hàng");
+		statusOrder.add("Đang Giao Hàng");
+		statusOrder.add("Đã Nhận Hàng");
+		
+		if(!statusOrder.contains(status)) {
+			result.put("message", "Chỉnh Sửa Thất Bại");
+			return result;
+		} else {
+			String resp = orderReponsitory.updateStatusOrderById(id, status);
+		if(resp != null) {
+			result.put("message", "Chỉnh Sửa Thành Công");
+		} else {
+			result.put("message", "Chỉnh Sửa Thất Bại");
+		}
+		return result;
+		}
+		
+		
+	}
 }
