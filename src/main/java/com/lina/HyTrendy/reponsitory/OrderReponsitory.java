@@ -53,5 +53,12 @@ public interface OrderReponsitory extends Neo4jRepository<OrderEntity, Long>  {
 			+ " RETURN 'ok'")
 	public String updateStatusOrderById(@Param("id") Long id, @Param("status") String status);
 	
+	@Query("MATCH (p:Person)-[h1:HAS_ORDER]->(o:Order)-[h2:HAS_PRODUCT_ORDER]->(pr:Product)"
+			+ " WHERE ID(o)=$id"
+			+ " DELETE h1, h2, o"
+			+ " RETURN 'ok' AS result"
+			+ " LIMIT 1")
+	public String deleteOrderById(@Param("id") Long id);
+	
 
 }

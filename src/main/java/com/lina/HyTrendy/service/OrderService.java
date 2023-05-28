@@ -102,7 +102,16 @@ public class OrderService {
 		}
 		return result;
 		}
-		
-		
+	}
+	
+	public Map<String, String> deleteOrderById(Long id) {
+		Map<String, String> result = new HashMap<>();
+		String resp = orderReponsitory.deleteOrderById(id);
+		if(resp != null) {
+			result.put("message", "Xóa Thành Công");
+		} else {
+			result.put("message", "Xóa Thất Bại");
+		}
+		return result;
 	}
 }

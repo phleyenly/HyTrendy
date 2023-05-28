@@ -6,7 +6,9 @@ import java.util.Map;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,5 +56,10 @@ public class Order {
 	@PutMapping("/order")
 	public Map<String, String> updateStatusOrderById(@RequestBody StatusOrderDto s ) {
 		return orderService.updateStatusOrderById(s.getId(), s.getStatus());
+	}
+	
+	@DeleteMapping("/order/{id}")
+	public Map<String, String> deleteOrderById(@PathVariable(name = "id", required = true) Long id) {
+		return orderService.deleteOrderById(id);
 	}
 }
