@@ -113,7 +113,6 @@ public class ProductService {
 	public ProductExtenDto getProductExtendById ( Long id) {
 		ProductExtenDto pdto = new ProductExtenDto();
 		ProductExtendProjection productProjection = productReponsitory.getProductExtendById(id);
-		System.out.println(productProjection);
 		pdto = mapper.map(productProjection, ProductExtenDto.class);
 		return pdto;
 		

@@ -41,9 +41,6 @@ public class AuthenticationApi {
 			 loginReq.setToken(jwtUtil.generateToken(user.getUsername())) ;
 			 loginReq.setUsername(user.getUsername());
 			 loginReq.setRole(personService.findByUsername(user.getUsername()).getRole());
-			 
-			 System.out.println(loginReq);
-			 
 			 return ResponseEntity.ok(loginReq);
 		 }
 		 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Username or password is not correct");
