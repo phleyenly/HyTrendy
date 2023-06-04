@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.lina.HyTrendy.dto.PersonDto;
 import com.lina.HyTrendy.service.PersonService;
 
@@ -77,5 +76,10 @@ public class Person {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		return personService.findByUsername(username);
+	}
+	
+	@PostMapping("person/password") 
+	public Map<String, String> checkPasswordByUrsernane(@RequestBody String password) {
+		return personService.checkPasswordByUrsernane(password);
 	}
 }

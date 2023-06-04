@@ -7,6 +7,9 @@ import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +19,14 @@ import com.lina.HyTrendy.reponsitory.PersonReponsitory;
 
 import lombok.RequiredArgsConstructor;
 
+
 @Service
 @RequiredArgsConstructor
 public class PersonService {
 	private final PersonReponsitory personReponsitory;
 	private final ModelMapper mapper;
 	private final PasswordEncoder passwordEncoder;
+	private final UserDetailsServiceImpl userDetailsServiceImpl;
 	
 	public List<String> getRole () {
 		return personReponsitory.getRole();
@@ -118,18 +123,19 @@ public class PersonService {
 		
 	}
 	
-	//hàm tạo cart
-	
-//	public Map<String, String> createCartByUsername(Long idProduct, String usernam, int quanity,String size) {
-//		Map<String, String> result = new HashMap<>();
-//		Long id = personReponsitory.createCartByUsername(idProduct, usernam, quanity, size);
-//		if(id!= null) {
-//			result.put("message", "Sản Phẩm Đã Được Thêm Vào Giỏ Hàng");
-//		} else {
-//			result.put("message", "Thêm vào giỏ hàng Thất Bại");
-//		}
-//		return result;
-//	}
+	public Map<String, String> checkPasswordByUrsernane( String password) {
+		Map<String, String> result = new HashMap<>();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+		UserDetails user =   userDetailsServiceImpl.loadUserByUsername(username);
+		if(passwordEncoder.matches(password, user.getPassword())) {
+			result.put("message", "OK");
+		} else {
+			result.put("message", "Mật khẩu không đúng");
+		}
+		return result;
+		
+	}
 	
 	
 }

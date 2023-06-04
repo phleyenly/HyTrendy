@@ -27,14 +27,19 @@ public interface OrderReponsitory extends Neo4jRepository<OrderEntity, Long>  {
 			+ " LIMIT 1")
 	public Long createOrder(@Param("idPerson") Long idPerson, @Param("status") String status, @Param("date") LocalDate date);
 	
-	@Query("MATCH (p:Person)-[h1:HAS_ORDER]-> (o:Order)-[h2:HAS_PRODUCT_ORDER]->(pr:Product)"
-			+ " WHERE p.username = $username"
-			+ " Return o, collect(h2), collect(pr) AS products")
-	public List<OrderEntity> getOrderByUsername(@Param("username") String username);
+//	@Query("MATCH (p:Person)-[h1:HAS_ORDER]-> (o:Order)-[h2:HAS_PRODUCT_ORDER]->(pr:Product)"
+//			+ " WHERE p.username = $username"
+//			+ " Return o, collect(h2), collect(pr) AS products")
+//	public List<OrderEntity> getOrderByUsername(@Param("username") String username);
 	
 	@Query("MATCH (p:Person)-[h:HAS_ORDER]-> (o:Order)"
 			+ " RETURN p, h, o")
 	public List<OrderEntity> getAllOrder();
+	
+	@Query("MATCH (p:Person)-[h:HAS_ORDER]-> (o:Order)"
+			+ " WHERE p.username = $username"
+			+ " RETURN p, h, o")
+	public List<OrderEntity> getOrderByUsername(@Param("username") String username);
 	
 	@Query("MATCH (o:Order)-[h:HAS_PRODUCT_ORDER]->(pr:Product)"
 			+ " WHERE ID(o)=$idOrder"

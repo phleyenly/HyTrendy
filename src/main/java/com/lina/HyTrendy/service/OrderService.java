@@ -38,15 +38,15 @@ public class OrderService {
 		return result;
 	}
 	
-	public List<OrderDto> getOrderByUsername (String username)  {
-		List<OrderDto> orderDto = new ArrayList<>();
-		List<OrderEntity> orderEntity = orderReponsitory.getOrderByUsername(username);
-		for (OrderEntity order : orderEntity) {
-			orderDto.add(mapper.map(order, OrderDto.class));
-		}
-		return orderDto;
-	}
-	
+//	public List<OrderDto> getOrderByUsername (String username)  {
+//		List<OrderDto> orderDto = new ArrayList<>();
+//		List<OrderEntity> orderEntity = orderReponsitory.getOrderByUsername(username);
+//		for (OrderEntity order : orderEntity) {
+//			orderDto.add(mapper.map(order, OrderDto.class));
+//		}
+//		return orderDto;
+//	}
+//	
 	
 	public List<OrderDto> findAllOrder ()  {
 		List<OrderDto> orderDto = new ArrayList<>();
@@ -81,6 +81,23 @@ public class OrderService {
 		
 		return order;
 	}
+	
+	//getOrderByUsername
+	
+	public List<OrderExtendDto> getOrderByUsername (String username) {
+		List<OrderExtendDto> order = new ArrayList<>();
+		List<OrderEntity> orderEnity = orderReponsitory.getOrderByUsername(username);
+		for (OrderEntity orderE : orderEnity) {
+			order.add(mapper.map(orderE, OrderExtendDto.class));
+		}
+		for (OrderExtendDto o : order) {
+			List<ProductOrderProjection> product = orderReponsitory.getProductByIdOrder(o.getId());
+			o.setProducts(product);
+		}
+		
+		return order;
+	}
+	
 	
 	public Map<String, String> updateStatusOrderById (Long id,String status) {
 		Map<String, String> result = new HashMap<>();

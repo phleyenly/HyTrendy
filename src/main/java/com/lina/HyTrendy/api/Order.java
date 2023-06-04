@@ -42,7 +42,7 @@ public class Order {
 	}
 	
 	@GetMapping("user/order")
-	public List<OrderDto> getOrderByUsername() {
+	public List<OrderExtendDto> getOrderByUsername() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		return orderService.getOrderByUsername(username);
