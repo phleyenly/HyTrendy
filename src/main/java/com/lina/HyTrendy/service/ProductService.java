@@ -27,9 +27,19 @@ public class ProductService {
 	
 	private final ModelMapper mapper;
 	
-	public List<ProductDto> getAll(){
+//	public List<ProductDto> getAll(){
+//		List<ProductDto> pdto = new ArrayList<>();
+//		List<ProductEntity> productEntity = productReponsitory.findAll();
+//		for(ProductEntity p:productEntity ) {
+//			pdto.add(mapper.map(p, ProductDto.class));
+//		}
+//		
+//		return pdto;
+//	}
+	
+	public List<ProductDto> getAll(int page, int limit){
 		List<ProductDto> pdto = new ArrayList<>();
-		List<ProductEntity> productEntity = productReponsitory.findAll();
+		List<ProductEntity> productEntity = productReponsitory.getAll(page-1, limit);
 		for(ProductEntity p:productEntity ) {
 			pdto.add(mapper.map(p, ProductDto.class));
 		}
@@ -116,6 +126,10 @@ public class ProductService {
 		pdto = mapper.map(productProjection, ProductExtenDto.class);
 		return pdto;
 		
+	}
+	
+	public int totalProduct() {
+		return productReponsitory.totalProduct();
 	}
 	
 	

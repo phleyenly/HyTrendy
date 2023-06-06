@@ -45,6 +45,7 @@ public class AppConfig {
 			.requestMatchers("/api/login").permitAll()
 			.requestMatchers("/api/category").permitAll()
 			.requestMatchers("/api/product").permitAll()
+			.requestMatchers("/api/product/count").permitAll()
 			.anyRequest().authenticated();
 		
 //		http.formLogin(); sài form login của server

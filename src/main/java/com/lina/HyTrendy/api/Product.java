@@ -36,8 +36,14 @@ public class Product {
 	
 	@GetMapping("/product")
 //	@PreAuthorize("hasAuthority('ADMIN') || hasAuthority('CLIENT') ")
-	public List<ProductDto> getAllProduct(){
-		return productService.getAll();
+	public List<ProductDto> getAllProduct(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(name = "limit", required = false, defaultValue = "5") int limit){
+		return productService.getAll(page, limit);
+	}
+	
+	@GetMapping("/product/count")
+	public int totalProduct() {
+		return productService.totalProduct();
 	}
 	
 	@GetMapping("/product/{categoryCode}/{typeCode}")

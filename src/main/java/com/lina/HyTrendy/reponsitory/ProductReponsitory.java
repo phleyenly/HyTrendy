@@ -12,8 +12,11 @@ import com.lina.HyTrendy.entity.ProductEntity;
 import com.lina.HyTrendy.projection.ProductExtendProjection;
 
 public interface ProductReponsitory extends Neo4jRepository<ProductEntity, Long> {
-	@Query("Match (p: Product) return p")
-	public List<ProductEntity> getAll();
+//	@Query("Match (p: Product) return p")
+//	public List<ProductEntity> getAll();
+	
+	@Query("Match (p: Product) return p SKIP $page*$limit LIMIT $limit")
+	public List<ProductEntity> getAll(@Param("page") int page, @Param("limit") int limit);
 	
 	@Query("match (c:Category)-[ht:HAS_TYPE] ->(t:Type)-[hp:HAS_PRODUCT]->(p:Product)"
 			+ "Where c.code = $categoryCode and t.code = $typeCode "
@@ -75,5 +78,9 @@ public interface ProductReponsitory extends Neo4jRepository<ProductEntity, Long>
 	
 	@Query ("match (p:Product) where ID(p) =$id Return ID(p)")
 	public Long getIdProduct (@Param("id") long id);
+	
+	@Query("MATCH (p:Product)"
+			+ " RETURN count(p) AS productCount")
+	public int totalProduct();
 	
 }
