@@ -20,7 +20,7 @@ public class HyTrendyApplication {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOriginPatterns(Arrays.asList("*")); // Sử dụng allowedOriginPatterns thay vì allowedOrigins
+        config.setAllowedOriginPatterns(Arrays.asList("*"));
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);

@@ -137,5 +137,24 @@ public class PersonService {
 		
 	}
 	
+	public Map<String, String> setPasswordByUsername(String username, String oldPass, String newPass, String confirmPass) {
+		Map<String, String> result = new HashMap<>();
+		Map<String, String> checkOldPassword = checkPasswordByUrsernane(oldPass);
+		if ("OK".equals(checkOldPassword.get("message")) == false ) {
+			result.put("message", "Mật khẩu cũ không đúng");
+		} else if (newPass.equals(confirmPass) ) {
+			String passwordChange = passwordEncoder.encode(newPass);
+			String reponse = this.personReponsitory.setPasswordByUsername(username, passwordChange);
+			if (reponse.equals("OK")) {
+				result.put("message", "Thay đổi Mật Khẩu Thành Công");
+			} else {
+				result.put("message", "Thay đổi Mật Khẩu Thất Bại");
+			}
+		} else {
+			result.put("message", "Mật khẩu mới và confirm mật khẩu không khớp");
+		}
+		return result;
+	}
+	
 	
 }

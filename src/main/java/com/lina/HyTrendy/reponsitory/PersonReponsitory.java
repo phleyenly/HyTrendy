@@ -43,9 +43,6 @@ public interface PersonReponsitory extends Neo4jRepository<PersonEntity, Long> {
 	public String deleteCartByIdCart(@Param("idCart") Long idCart, @Param("idPerson") Long idPerson);
 	
 	
-	
-	
-	
 	@Query("MATCH (p:Person) "
 			+ "RETURN distinct p.role")
 	public List<String> getRole();
@@ -71,4 +68,8 @@ public interface PersonReponsitory extends Neo4jRepository<PersonEntity, Long> {
 	public Long updateById (@Param("id") long id, @Param("address") String address, @Param("name")  String name, @Param("phone") String phone, 
 			@Param("role") String role, @Param("username") String username, @Param("password") String password);
 
+	@Query("MATCH (p:Person) WHERE p.username = $username"
+			+ " SET p.password = $password"
+			+ " RETURN 'OK'")
+	public String setPasswordByUsername(@Param("username") String username, @Param("password") String password);
 }
