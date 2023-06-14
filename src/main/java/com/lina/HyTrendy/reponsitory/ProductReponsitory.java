@@ -60,6 +60,7 @@ public interface ProductReponsitory extends Neo4jRepository<ProductEntity, Long>
 			+ "    stock: $stock,"
 			+ "    size: $size,"
 			+ "    tags: $tags,"
+			+ "    image: $image,"
 			+ "    origin:$origin,"
 			+ "    material: $material,"
 			+ "    description: $description})"
