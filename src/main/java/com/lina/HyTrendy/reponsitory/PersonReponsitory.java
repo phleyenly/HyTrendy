@@ -16,7 +16,7 @@ import com.lina.HyTrendy.projection.CartItemProjection;
 public interface PersonReponsitory extends Neo4jRepository<PersonEntity, Long> {//rename thanh person trc di
 	@Query("MATCH (p:Person)-[h:HAS_CART]->(i:Product)"
 			+ " WHERE ID(p) = $id"
-			+ " RETURN i, h, i.name as name, i.price as price, ID(i) as idProduct, h.quantity as quantity, h.size as size, ID(h) as IdCart")
+			+ " RETURN i, h, i.name as name, i.price as price, i.image as image, ID(i) as idProduct, h.quantity as quantity, h.size as size, ID(h) as IdCart")
 	public List<CartItemProjection> getCartByPersonById ( @Param("id") Long id);
 	
 	//tạo cart 
