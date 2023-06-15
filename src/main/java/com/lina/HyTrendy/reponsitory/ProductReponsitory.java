@@ -30,7 +30,7 @@ public interface ProductReponsitory extends Neo4jRepository<ProductEntity, Long>
 //			+ "SET p.description = $description, p.material = $material, p.name = $name, p.origin = $origin, p.price = $price, p.size = $size, p.stock = $stock, p.tags = $tags, p.image = $image "
 //			+ "Return ID(p)")
 //	public Long setByID (@Param("id") long id, @Param("description") String description, @Param("material") String material, @Param("name") String name,
-//			@Param("origin") String origin, @Param("price")  int price, @Param("size") String[] size, @Param("stock") int stock, @Param("tags") String tags, @Param("image") String[] image);
+//			@Param("origin") String origin, @Param("price")  int price, @Param("size") List<String> size, @Param("stock") int stock, @Param("tags") String tags, @Param("image") List<String> image);
 	
 	
 	@Query("MATCH (p:Category)-[h1:HAS_TYPE]-(t:Type)-[h2:HAS_PRODUCT]->(pr:Product)"
@@ -52,7 +52,7 @@ public interface ProductReponsitory extends Neo4jRepository<ProductEntity, Long>
 			+ "Create (t1)-[:HAS_PRODUCT]-> (pr) "
 			+ "Return ID(pr)")
 	public Long updateByID (@Param("id") long id, @Param("description") String description, @Param("material") String material, @Param("name") String name,
-			@Param("origin") String origin, @Param("price")  int price, @Param("size") String[] size, @Param("stock") int stock, @Param("tags") String tags, @Param("image") String[] image, @Param("idType") long idType);
+			@Param("origin") String origin, @Param("price")  int price, @Param("size") List<String> size, @Param("stock") int stock, @Param("tags") String tags, @Param("image") List<String> image, @Param("idType") long idType);
 	
 	@Query("Create(p:Product{ "
 			+ "    name: $name, "
@@ -70,8 +70,8 @@ public interface ProductReponsitory extends Neo4jRepository<ProductEntity, Long>
 			+ " create (t)-[:HAS_PRODUCT]->(p)"
 			+ " return ID(p)")
 	public Long createProduct ( @Param("description") String description, @Param("material") String material, @Param("name") String name,
-			@Param("origin") String origin, @Param("price")  int price, @Param("size") String[] size, @Param("stock") int stock, 
-			@Param("tags") String tags, @Param("image") String[] image, @Param("typeId") long typeId,  @Param("categoryId") long categoryId);
+			@Param("origin") String origin, @Param("price")  int price, @Param("size") List<String> size, @Param("stock") int stock, 
+			@Param("tags") String tags, @Param("image") List<String> image, @Param("typeId") long typeId,  @Param("categoryId") long categoryId);
 	
 	@Query("MATCH (p:Product) WHERE ID(p)= $id"
 			+ " DELETE p")
