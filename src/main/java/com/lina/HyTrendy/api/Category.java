@@ -22,6 +22,7 @@ public class Category {
 	
 	@GetMapping("/category")
 	public List<CategoryDto> getAllCategory(){
+		System.out.println("có người vào xem");
 		return categoryService.getAll();
 	}
 	
