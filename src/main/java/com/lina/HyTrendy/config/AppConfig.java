@@ -49,9 +49,9 @@ public class AppConfig {
 		
 //		http.formLogin(); sài form login của server
 //		
-		http.exceptionHandling().authenticationEntryPoint((req, res, ex) -> {
-			res.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
-		});
+//		http.exceptionHandling().authenticationEntryPoint((req, res, ex) -> {
+//			res.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+//		});
 		
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
